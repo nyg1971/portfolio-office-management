@@ -1,4 +1,4 @@
-// 顧客一覧画面のプレースホルダー (暫定)
+// 顧客一覧画面
 import React, { useState, useEffect } from 'react';
 import {
     Table,
