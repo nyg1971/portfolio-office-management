@@ -77,8 +77,6 @@ npm install
 npm run dev
 ```
 
-詳細なセットアップ手順は各ディレクトリのREADMEを参照してください。
-
 ## システム設計
 
 ### データベース設計
@@ -102,10 +100,8 @@ docker-compose run --rm app rspec
 ```
 
 ### フロントエンド
-```bash
-cd frontend/
-npm run test
-```
+
+（実装予定）
 
 ## 開発ロードマップ
 
@@ -120,6 +116,7 @@ npm run test
 - [ ] 作業記録管理
 - [ ] レポート機能
 - [ ] 詳細画面の充実
+- [ ] Test
 
 ### 今後の予定
 - [ ] 通知機能
