@@ -1,0 +1,59 @@
+customer:
+  name:
+    display_name: "顧客名"
+    type: "japanese_name"
+    required: true
+    max_length: 100
+    help_text: "顧客の正式名称を入力してください"
+    placeholder: "例：田中太郎"
+
+  email:
+    display_name: "メールアドレス"
+    type: "email"
+    required: true
+    max_length: 255
+    help_text: "連絡用のメールアドレスを入力してください"
+    placeholder: "例：tanaka@example.com"
+
+  phone:
+    display_name: "電話番号"
+    type: "phone"
+    required: false
+    help_text: "ハイフン区切りで入力してください"
+    placeholder: "例：03-1234-5678"
+
+  address:
+    display_name: "住所"
+    type: "japanese_address"
+    required: false
+    max_length: 255
+    help_text: "所在地を入力してください"
+    placeholder: "例：東京都渋谷区..."
+
+  company_name:
+    display_name: "会社名"
+    type: "japanese_name"
+    required: false
+    max_length: 100
+    help_text: "所属会社名（個人の場合は空白）"
+    placeholder: "例：株式会社サンプル"
+
+  customer_type:
+    display_name: "顧客タイプ"
+    type: "enum_inclusion"
+    required: true
+    help_text: "顧客の分類を選択してください"
+    choices_display:
+      regular: "一般顧客"
+      premium: "プレミアム顧客"
+      corporate: "法人顧客"
+
+  status:
+    display_name: "ステータス"
+    type: "enum_inclusion"
+    required: true
+    help_text: "顧客の現在の状態"
+    choices_display:
+      active: "アクティブ"
+      inactive: "非アクティブ"
+      pending: "保留中"

@@ -1,0 +1,26 @@
+workrecord:
+  content:
+    display_name: "作業内容"
+    type: "japanese_address"  # 長文対応
+    required: true
+    max_length: 1000
+    help_text: "実施した作業の詳細を入力してください"
+    placeholder: "例：顧客との打ち合わせを実施。新システムの要件をヒアリング。"
+
+  work_date:
+    display_name: "作業日"
+    type: "date"
+    required: true
+    help_text: "作業を実施した日付"
+
+  work_type:
+    display_name: "作業タイプ"
+    type: "enum"
+    required: true
+    help_text: "作業の種類を選択してください"
+
+  status:
+    display_name: "ステータス"
+    type: "enum"
+    required: false
+    help_text: "作業の進行状況"

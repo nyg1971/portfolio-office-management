@@ -1,0 +1,33 @@
+require:
+  - rubocop-rails
+
+AllCops:
+  TargetRubyVersion: 3.1
+  NewCops: enable
+  Exclude:
+    - 'bin/**/*'
+    - 'db/schema.rb'
+    - 'vendor/**/*'
+
+Style/Documentation:
+  Enabled: false
+
+Layout/LineLength:
+  Max: 120
+  Exclude:
+    - 'config/initializers/devise.rb'  # 自動生成ファイル
+
+# メソッドの長さ制限を緩和
+Metrics/MethodLength:
+  Max: 15  # デフォルト10 → 15に
+
+# ブロックの長さ制限を緩和
+Metrics/BlockLength:
+  Max: 30  # デフォルト25 → 30に
+  Exclude:
+    - 'spec/**/*'  # テストファイルは除外
+
+# 特定ファイルのみ除外
+Lint/UselessRescue:
+  Exclude:
+    - 'app/lib/json_web_token.rb'  # TODO: 修正予定

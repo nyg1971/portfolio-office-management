@@ -1,0 +1,39 @@
+ja:
+  activerecord:
+    errors:
+      messages:
+        required: "を入力してください"
+        blank: "を入力してください"
+        record_invalid: "バリデーションに失敗しました"
+
+    attributes:
+      work_record:
+        customer: "顧客"
+        staff_user: "担当スタッフ"
+        department: "部署"
+        content: "作業内容"
+        work_date: "作業日"
+        work_type: "作業タイプ"
+        status: "ステータス"
+
+      customer:
+        name: "顧客名"
+        customer_type: "顧客タイプ"
+        department: "部署"
+        status: "ステータス"
+
+      department:
+        name: "部署名"
+        address: "住所"
+        status: "ステータス"
+        department_type: "部署タイプ"
+
+      user:
+        email: "メールアドレス"
+        password: "パスワード"
+        role: "役割"
+
+  errors:
+    messages:
+      required: "は必須です"
+      blank: "を入力してください"

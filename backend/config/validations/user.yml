@@ -1,0 +1,30 @@
+user:
+  name:
+    display_name: "氏名"
+    type: "japanese_name"
+    required: true
+    max_length: 100
+    help_text: "フルネームを入力してください"
+    placeholder: "例：山田太郎"
+
+  email:
+    display_name: "メールアドレス"
+    type: "email"
+    required: true
+    max_length: 255
+    help_text: "ログイン用のメールアドレス"
+    placeholder: "例：yamada@company.com"
+
+  phone:
+    display_name: "携帯電話"
+    type: "mobile_phone"
+    required: false
+    help_text: "緊急連絡用の携帯電話番号"
+    placeholder: "例：090-1234-5678"
+
+  emergency_contact:
+    display_name: "緊急連絡先"
+    type: "phone"
+    required: false
+    help_text: "緊急時の連絡先電話番号"
+    placeholder: "例：03-1234-5678"

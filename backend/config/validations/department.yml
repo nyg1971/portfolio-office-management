@@ -1,0 +1,40 @@
+department:
+  name:
+    display_name: "部署名"
+    type: "japanese_name"
+    required: true
+    max_length: 100
+    help_text: "部署の正式名称を入力してください"
+    placeholder: "例：営業部"
+
+  address:
+    display_name: "住所"
+    type: "japanese_address"
+    required: false
+    max_length: 500
+    help_text: "部署の住所"
+    placeholder: "例：東京都渋谷区..."
+
+  description:
+    display_name: "部署説明"
+    type: "japanese_address"
+    required: false
+    max_length: 500
+    help_text: "部署の役割や業務内容"
+    placeholder: "例：新規顧客開拓および既存顧客との関係維持を担当"
+
+  location:
+    display_name: "所在地"
+    type: "japanese_address"
+    required: false
+    max_length: 255
+    help_text: "部署の物理的な所在地"
+    placeholder: "例：本社3階東側"
+
+  manager_name:
+    display_name: "責任者名"
+    type: "japanese_name"
+    required: false
+    max_length: 100
+    help_text: "部署責任者の氏名"
+    placeholder: "例：佐藤次郎"
