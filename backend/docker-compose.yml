@@ -33,18 +33,18 @@ services:
       - postgres
   app:
     build: .
-    container_name: business_api_app
+    container_name: portfolio_office_app
     volumes:
       - .:/app
       - bundle_cache:/usr/local/bundle
     ports:
-      - "3000:3000"
+      - "3001:3001"
     depends_on:
       - postgres
       - redis
     environment:
       - DATABASE_URL=postgresql://business_user:business_password@postgres:5432/business_api_development
-    command: bundle exec rails server -b 0.0.0.0
+    command: bundle exec rails server -b 0.0.0.0 -p 3001
 
 volumes:
   postgres_data:
