@@ -2,9 +2,12 @@
 
 FactoryBot.define do
   factory :work_record do
-    customer { nil }
-    staff_user { nil }
-    content { 'MyText' }
-    work_date { '2025-06-20 09:52:40' }
+    association :department
+    association :staff_user, factory: :user
+    association :customer
+    content { 'テスト作業内容' }
+    work_date { Date.current }
+    work_type { :support }
+    status { :in_progress }
   end
 end

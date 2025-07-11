@@ -4,11 +4,45 @@
 module Api
   module V1
     class BaseController < ApplicationController
+      # 統一エラーハンドリング
+      rescue_from ActionController::ParameterMissing, with: :parameter_missing
+      rescue_from ArgumentError, with: :argument_error
+      rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
+      rescue_from ActiveRecord::RecordInvalid, with: :record_invalid
+
       # 全てのアクションの前に認証チェックを実行
       # このコントローラーを継承する全てのControllerで認証が必要になる
       before_action :authenticate_request
 
       private
+
+      def parameter_missing(exception)
+        render json: {
+          error: 'パラメータが不足しています',
+          message: exception.message
+        }, status: :bad_request
+      end
+
+      def argument_error(exception)
+        render json: {
+          error: 'パラメータが不正です',
+          message: exception.message
+        }, status: :bad_request
+      end
+
+      def record_not_found(exception)
+        render json: {
+          error: 'リソースが見つかりません',
+          message: exception.message
+        }, status: :not_found
+      end
+
+      def record_invalid(exception)
+        render json: {
+          error: 'バリデーションエラー',
+          errors: exception.record.errors.full_messages
+        }, status: :unprocessable_entity
+      end
 
       # 指定された役職以上の権限をチェックする汎用メソッド
       def authorise_role(required_role)

@@ -18,7 +18,7 @@ Rails.application.routes.draw do
       get 'auth/me', to: 'auth#me'
 
       # リソース系APIルート
-      resources :customers, only: %i[index create show]
+      resources :customers, only: %i[index create show update destroy]
       # resources :work_records
     end
   end
