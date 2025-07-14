@@ -1,6 +1,7 @@
 // JWT認証を使ったログインフォームコンポーネント
 
-import React, { useState, FormEvent } from 'react';
+import React, { useState } from 'react';
+import type { FormEvent } from 'react';
 import {
     Container, Paper, TextField, Button, Typography, Alert, Box
 } from '@mui/material'
@@ -41,56 +42,63 @@ const LoginForm: React.FC = () => {
     }
 
     return (
-        <Container maxWidth="sm">
-            <Box sx={{ mt: 8, display:'flex', flexDirection: 'column', alignItems: 'center' }}>
-                <Paper elevation={3} sx={{ p:4, width: "100%" }}>
-                    {/* ページタイトル */}
-                    <Typography component="h1" variant="h4" align="center" gutterBottom>
-                        ログイン
-                    </Typography>
-
-                    {/* エラーメッセージ表示 */}
-                    {error && <Alert severity="error" sx={{ mb: 2 }}>{error}</Alert>}
-
-                    {/* ログインフォーム */}
-                    <form onSubmit={handleSubmit}>
-                        {/* メールアドレス入力フィールド */}
-                        <TextField
-                            margin="normal"
-                            required
-                            fullWidth
-                            label="メールアドレス"
-                            type="email"
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)} // 入力値をstateに反映
-                            autoComplete="email"
-                            autoFocus // ページ読み込み時にフォーカス
-                        />
-                        {/* パスワード入力フィールド */}
-                        <TextField
-                            margin="normal"
-                            required
-                            fullWidth
-                            label="パスワード"
-                            type="password"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)} // 入力値をstateに反映
-                            autoComplete="current-password"
-                        />
-                        {/* ログインボタン */}
-                        <Button
-                            type="submit"
-                            fullWidth
-                            variant="contained"
-                            disabled={loading} // 送信中は無効化
-                            sx={{ mt: 3, mb: 2 }}
+        <div className="login-container">
+            <Container maxWidth="sm">
+                <Box sx={{ mt: 8, display:'flex', flexDirection: 'column', alignItems: 'center' }}>
+                    <Paper elevation={3} sx={{ p:4, width: "100%" }}>
+                        {/* ページタイトル */}
+                        <Typography
+                            component="h1"
+                            variant="h5"
+                            align="center"
+                            gutterBottom
                         >
-                            {loading ? 'ログイン中...' : 'ログイン'} {/* 送信中は表示を変更 */}
-                        </Button>
-                    </form>
-                </Paper>
-            </Box>
-        </Container>
+                            福祉事務所 業務管理システム
+                        </Typography>
+
+                        {/* エラーメッセージ表示 */}
+                        {error && <Alert severity="error" sx={{ mb: 2 }}>{error}</Alert>}
+
+                        {/* ログインフォーム */}
+                        <form onSubmit={handleSubmit}>
+                            {/* メールアドレス入力フィールド */}
+                            <TextField
+                                margin="normal"
+                                required
+                                fullWidth
+                                label="メールアドレス"
+                                type="email"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)} // 入力値をstateに反映
+                                autoComplete="email"
+                                autoFocus // ページ読み込み時にフォーカス
+                            />
+                            {/* パスワード入力フィールド */}
+                            <TextField
+                                margin="normal"
+                                required
+                                fullWidth
+                                label="パスワード"
+                                type="password"
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)} // 入力値をstateに反映
+                                autoComplete="current-password"
+                            />
+                            {/* ログインボタン */}
+                            <Button
+                                type="submit"
+                                fullWidth
+                                variant="contained"
+                                disabled={loading} // 送信中は無効化
+                                sx={{ mt: 3, mb: 2 }}
+                            >
+                                {loading ? 'ログイン中...' : 'ログイン'} {/* 送信中は表示を変更 */}
+                            </Button>
+                        </form>
+                    </Paper>
+                </Box>
+            </Container>
+        </div>
     )
 };
 

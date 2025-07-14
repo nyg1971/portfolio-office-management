@@ -1,0 +1,38 @@
+/* ================================================
+   Portfolio Office Management - レイアウト専用CSS
+   面談用デモ画面のPC専用レイアウト
+   ================================================ */
+
+#root {
+    width: 100%;
+}
+
+
+/* ページ全体の中央寄せコンテナ */
+.page-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+    min-height: 100vh;
+}
+
+/* ログイン画面専用の中央寄せ */
+.login-container {
+    max-width: 480px;
+    margin: 0 auto;
+    min-height: initial;
+}
+
+/* 顧客一覧テーブルのスクロール制御 */
+.customer-table-container {
+    max-height: 600px;
+    overflow-y: auto;
+}
+
+/* PC専用レスポンシブ調整 */
+@media (max-width: 1240px) {
+    .page-container {
+        max-width: 100%;
+        padding: 0 16px;
+    }
+}
