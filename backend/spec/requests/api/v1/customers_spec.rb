@@ -169,13 +169,16 @@ RSpec.describe 'Api::V1::Customers', type: :request do
           expect(response.parsed_body).to have_key('errors')
         end
 
-        it 'raises ArgumentError for invalid customer_type' do
+        it 'returns validation error for invalid customer_type' do
           invalid_params = valid_params.deep_dup
           invalid_params[:customer][:customer_type] = 'invalid_type'
 
-          expect do
-            post '/api/v1/customers', params: invalid_params, headers: headers, as: :json
-          end.to raise_error(ArgumentError)
+          post '/api/v1/customers', params: invalid_params, headers: headers, as: :json
+
+          expect(response).to have_http_status(:bad_request)
+          expect(response.parsed_body).to have_key('error')
+          expect(response.parsed_body['error']).to eq('パラメータが不正です')
+          expect(response.parsed_body['message']).to include('invalid_type')
         end
 
         it 'returns error for missing required fields' do

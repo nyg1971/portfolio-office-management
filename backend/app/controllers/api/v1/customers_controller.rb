@@ -3,7 +3,8 @@
 module Api
   module V1
     class CustomersController < BaseController
-      before_action :set_customer, only: [:show]
+      rescue_from ActiveRecord::RecordNotFound, with: :customer_not_found
+      before_action :set_customer, only: %i[show update destroy]
 
       # GET /api/v1/customers
       def index
@@ -37,12 +38,38 @@ module Api
         end
       end
 
+      # PATCH/PUT /api/v1/customers/1
+      def update
+        if @customer.update(customer_params)
+          render json: { customer: customer_json(@customer) }
+        else
+          render json: { errors: @customer.errors.full_messages },
+                 status: :unprocessable_entity
+        end
+      end
+
+      # DELETE /api/vi/customer/1
+      def destroy
+        @customer.destroy
+        head :no_content # 204 No Content(削除成功)
+      rescue ActiveRecord::InvalidForeignKey => e
+        render json: {
+          error: '関連データがあるため削除できません',
+          details: e.message
+        }, status: :unprocessable_entity
+      end
+
       private
+
+      def customer_not_found(exception)
+        render json: {
+          error: '顧客が見つかりません',
+          message: exception.message
+        }, status: :not_found
+      end
 
       def set_customer
         @customer = Customer.find(params[:id])
-      rescue ActiveRecord::RecordNotFound
-        render json: { error: '顧客が見つかりません' }, status: :not_found
       end
 
       def customer_params

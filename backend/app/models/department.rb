@@ -30,11 +30,11 @@ class Department < ApplicationRecord
   # prefix: true → status_active? のようなメソッド名に（名前衝突防止）
 
   enum :department_type, {
-    sales: 0,           # 営業部
-    engineering: 1,     # 技術部
-    administration: 2,  # 管理部
-    support: 3,         # サポート部
-    other: 4 # その他
+    sales: 0,           # 保護課
+    engineering: 1,     # 福祉課
+    administration: 2,  # 子ども家庭課
+    support: 3,         # 医療助成課
+    other: 4 # 医療助成課
   }, prefix: :type
   # prefix: true → type_sales? のようなメソッド名に
 
