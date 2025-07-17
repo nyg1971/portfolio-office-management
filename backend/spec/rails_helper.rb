@@ -19,6 +19,9 @@ Shoulda::Matchers.configure do |config|
 end
 
 RSpec.configure do |config|
+  # TimeHelpers
+  config.include ActiveSupport::Testing::TimeHelpers
+
   # factoryBot
   config.include FactoryBot::Syntax::Methods
 
