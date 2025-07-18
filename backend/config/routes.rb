@@ -22,6 +22,7 @@ Rails.application.routes.draw do
 
       # リソース系APIルート
       resources :customers, only: %i[index create show update destroy]
+      resources :users, except: %i[new edit]
       # resources :work_records
     end
   end
