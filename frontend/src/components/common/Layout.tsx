@@ -1,6 +1,7 @@
-// 共通レイアウトのプレースホルダー（DAY 5で拡張予定）
+// 共通レイアウト
 
-import React, { ReactNode } from 'react';
+import React  from 'react';
+import type { ReactNode } from 'react';
 import { Box, AppBar, Toolbar, Typography, Button } from '@mui/material';
 import { useAuth } from '../../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
@@ -21,12 +22,12 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
     };
 
     return (
-        <Box sx={{ flexGrow: 1 }}>
+        <div className="page-container">
             {/* ヘッダー */}
             <AppBar position="static">
                 <Toolbar>
                     <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-                        Business API Frontend
+                        福祉事務所 業務管理システム
                     </Typography>
                     <Typography variant="body2" sx={{ mr: 2 }}>
                         {user?.email}
@@ -38,10 +39,12 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
             </AppBar>
 
             {/* メインコンテンツ */}
-            <main>
-                {children}
-            </main>
-        </Box>
+            <Box component={"main"} sx={{ py: 3 }}>
+                <main>
+                    {children}
+                </main>
+            </Box>
+        </div>
     );
 };
 

@@ -73,7 +73,8 @@ const CustomerFilters: React.FC<CustomerFiltersProps> = ({ filters, onFiltersCha
                 </Grid>
 
                 {/* 顧客種別フィルター */}
-                <Grid item xs={12} md={4}>
+                <Grid item xs={12} md={4}
+                sx={{width: 130}}>
                     <FormControl fullWidth size="small">
                         <InputLabel>顧客種別</InputLabel>
                         <Select
@@ -92,7 +93,8 @@ const CustomerFilters: React.FC<CustomerFiltersProps> = ({ filters, onFiltersCha
                 </Grid>
 
                 {/* ステータスフィルター */}
-                <Grid item xs={12} md={4}>
+                <Grid item xs={12} md={4}
+                sx={{width: 150}}>
                     <FormControl fullWidth size="small">
                         <InputLabel>ステータス</InputLabel>
                         <Select
