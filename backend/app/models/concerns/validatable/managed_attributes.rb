@@ -86,7 +86,6 @@ module Validatable
       emergency_contact: '緊急連絡先'
     }.freeze
 
-    # === 全属性を統合 ===
     ALL_ATTRIBUTES = BASIC_ATTRIBUTES
                      .merge(USER_ATTRIBUTES)
                      .merge(ORGANIZATION_ATTRIBUTES)

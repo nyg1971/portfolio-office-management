@@ -78,9 +78,9 @@ module Validatable
     def self.test_pattern(pattern_name, test_string)
       pattern = const_get(pattern_name)
       result = test_string.match?(pattern)
-      Rails.logger.debug { "#{pattern_name}: '#{test_string}' => #{result ? '✅ マッチ' : '❌ 不一致'}" }
+      Rails.logger.debug { "#{pattern_name}: '#{test_string}' => #{result ? ' マッチ' : ' 不一致'}" }
     rescue NameError
-      Rails.logger.debug { "❌ パターン '#{pattern_name}' が見つかりません" }
+      Rails.logger.debug { " パターン '#{pattern_name}' が見つかりません" }
     end
   end
 end
