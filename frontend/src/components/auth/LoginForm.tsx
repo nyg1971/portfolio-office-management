@@ -53,7 +53,7 @@ const LoginForm: React.FC = () => {
                             align="center"
                             gutterBottom
                         >
-                            福祉事務所 業務管理システム
+                        ログイン
                         </Typography>
 
                         {/* エラーメッセージ表示 */}
