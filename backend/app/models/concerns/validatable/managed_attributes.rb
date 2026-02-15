@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 # 属性名管理専用ファイル
-
 module Validatable
   module ManagedAttributes
     # === 基本属性 ===
@@ -31,18 +30,6 @@ module Validatable
       organization_name: '組織名',
       division_name: '事業部名',
       team_name: 'チーム名'
-    }.freeze
-
-    # === 商品・サービス関連属性 ===
-    PRODUCT_ATTRIBUTES = {
-      product_name: '商品名',
-      service_name: 'サービス名',
-      category_name: 'カテゴリ名',
-      brand_name: 'ブランド名',
-      model_name: 'モデル名',
-      price: '価格',
-      description: '説明',
-      specifications: '仕様'
     }.freeze
 
     # === コンテンツ関連属性 ===
@@ -86,18 +73,15 @@ module Validatable
       emergency_contact: '緊急連絡先'
     }.freeze
 
-    # === 全属性を統合 ===
     ALL_ATTRIBUTES = BASIC_ATTRIBUTES
                      .merge(USER_ATTRIBUTES)
                      .merge(ORGANIZATION_ATTRIBUTES)
-                     .merge(PRODUCT_ATTRIBUTES)
                      .merge(CONTENT_ATTRIBUTES)
                      .merge(META_ATTRIBUTES)
                      .merge(LOCATION_ATTRIBUTES)
                      .merge(CONTACT_ATTRIBUTES)
                      .freeze
 
-    # === 属性追加のヘルパーメソッド ===
     def self.list_all_attributes
       Rails.logger.debug '=== 管理されている属性一覧 ==='
       ALL_ATTRIBUTES.each do |key, value|

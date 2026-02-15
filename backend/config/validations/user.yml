@@ -28,3 +28,13 @@ user:
     required: false
     help_text: "緊急時の連絡先電話番号"
     placeholder: "例：03-1234-5678"
+
+  role:
+    display_name: "役職"
+    type: "enum_inclusion"
+    required: true
+    help_text: "役職"
+    choices_display:
+      staff: "スタッフ"
+      manager: "マネージャー"
+      admin: "管理者"

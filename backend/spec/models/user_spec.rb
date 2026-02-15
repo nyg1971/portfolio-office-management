@@ -5,7 +5,12 @@ require 'rails_helper'
 RSpec.describe User, type: :model do
   describe 'validations' do
     it { should validate_presence_of(:email) }
-    it { should validate_presence_of(:role) }
+    it 'validates presence of role' do
+      user = User.new(email: 'test@example.com', password: 'password')
+      user.role = nil
+      user.valid?
+      expect(user.errors[:role]).to include(a_string_matching('役職は必須です'))
+    end
   end
 
   describe 'enums' do

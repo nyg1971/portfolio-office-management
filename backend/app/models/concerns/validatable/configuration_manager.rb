@@ -152,23 +152,22 @@ module Validatable
       end
 
       def levenshtein_distance(str1, str2)
-        matrix = Array.new(str1.length + 1) { Array.new(str2.length + 1) }
+        prev_row = (0..str2.length).to_a
 
-        (0..str1.length).each { |i| matrix[i][0] = i }
-        (0..str2.length).each { |j| matrix[0][j] = j }
-
-        (1..str1.length).each do |i|
-          (1..str2.length).each do |j|
-            cost = str1[i - 1] == str2[j - 1] ? 0 : 1
-            matrix[i][j] = [
-              matrix[i - 1][j] + 1,      # 削除
-              matrix[i][j - 1] + 1,      # 挿入
-              matrix[i - 1][j - 1] + cost # 置換
-            ].min
-          end
+        str1.each_char.with_index(1) do |ch1, i|
+          prev_row = compute_row(str2, ch1, i, prev_row)
         end
 
-        matrix[str1.length][str2.length]
+        prev_row[str2.length]
+      end
+
+      def compute_row(str2, ch1, row_index, prev_row)
+        curr_row = [row_index]
+        str2.each_char.with_index(1) do |ch2, j|
+          cost = ch1 == ch2 ? 0 : 1
+          curr_row[j] = [curr_row[j - 1] + 1, prev_row[j] + 1, prev_row[j - 1] + cost].min
+        end
+        curr_row
       end
     end
   end
