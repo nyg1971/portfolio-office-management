@@ -26,8 +26,3 @@ Metrics/BlockLength:
   Max: 30  # デフォルト25 → 30に
   Exclude:
     - 'spec/**/*'  # テストファイルは除外
-
-# 特定ファイルのみ除外
-Lint/UselessRescue:
-  Exclude:
-    - 'app/lib/json_web_token.rb'  # TODO: 修正予定

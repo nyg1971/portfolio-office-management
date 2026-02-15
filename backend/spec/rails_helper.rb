@@ -25,35 +25,14 @@ RSpec.configure do |config|
   # factoryBot
   config.include FactoryBot::Syntax::Methods
 
-  # データベースクリーナー
-  # config.use_transactional_fixtures = true
-  # データベーストランザクション（安全な書き方）
-  config.use_transactional_fixtures = true if config.respond_to?(:use_transactional_fixtures)
-
-  # JSON レスポンスヘルパー
-  # config.include Devise::Test::IntegrationHelpers, type: :request
+  config.use_transactional_fixtures = true
 
   config.fixture_paths = [
     Rails.root.join('spec/fixtures')
   ]
-  # Rails helpers
-  # ファイルパスから自動でtype:を設定
+
   config.infer_spec_type_from_file_location!
   config.filter_rails_from_backtrace!
-
-  # 各テスト前後のクリーンアップ（トランザクションで解決しない場合の保険）
-  config.before(:suite) do
-    DatabaseCleaner.clean_with(:truncation) if defined?(DatabaseCleaner)
-  end
-
-  config.before(:each) do
-    DatabaseCleaner.strategy = :transaction if defined?(DatabaseCleaner)
-    DatabaseCleaner.start if defined?(DatabaseCleaner)
-  end
-
-  config.after(:each) do
-    DatabaseCleaner.clean if defined?(DatabaseCleaner)
-  end
 end
 
 begin

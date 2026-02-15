@@ -4,6 +4,7 @@ module Api
   module V1
     class UsersController < BaseController
       before_action :set_user, only: %i[show]
+
       def index
         @users = User.page(params[:page]).per(params[:per_page] || 20)
         render json: {
@@ -12,8 +13,6 @@ module Api
         }
       end
 
-      # def create
-      # end
       def show
         return unless authorize_user_access?(@user)
 
@@ -21,10 +20,6 @@ module Api
           user: @user.as_json_for_api
         }
       end
-      # def update
-      # end
-      # def destroy
-      # end
 
       private
 
