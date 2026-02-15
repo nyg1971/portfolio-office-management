@@ -2,28 +2,20 @@
 default: &default
   adapter: postgresql
   encoding: unicode
+  host: <%= ENV.fetch("DATABASE_HOST", "postgres") %>
+  port: 5432
+  username: business_user
+  password: business_password
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
 
 development:
   <<: *default
   database: business_api_development
-  username: business_user
-  password: business_password
-  host: postgres
-  port: 5432
 
 test:
   <<: *default
   database: business_api_test
-  username: business_user
-  password: business_password
-  host: postgres
-  port: 5432
 
 production:
   <<: *default
   database: business_api_production
-  username: business_user
-  password: business_password
-  host: postgres
-  port: 5432

@@ -66,4 +66,10 @@ Rails.application.configure do
 
   # Raise error when a before_action's only/except options reference missing actions.
   config.action_controller.raise_on_missing_callback_actions = true
+
+  # FIXME: GitHub Actions環境でRAILS_MASTER_KEYが利用できないため暫定対応
+  # pull_request 実行時には RAILS_MASTER_KEY が利用できない
+  # 場合があるため、テスト環境では SECRET_KEY_BASE を固定値で補完する。
+  # JWT鍵管理は将来的に分離・再設計予定。
+  ENV['SECRET_KEY_BASE'] ||= 'test_secret_key_base'
 end
