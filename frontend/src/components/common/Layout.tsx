@@ -1,29 +1,24 @@
-// 共通レイアウト
-
 import React  from 'react';
 import type { ReactNode } from 'react';
 import { Box, AppBar, Toolbar, Typography, Button } from '@mui/material';
-import { useAuth } from '../../context/AuthContext';
+import { useAuth } from '../../hooks/useAuth';
 import { useNavigate } from 'react-router-dom';
 
-// Layout コンポーネントのプロパティ型定義
 interface LayoutProps {
-    children: ReactNode; // 子コンポーネント
+    children: ReactNode;
 }
 
 const Layout: React.FC<LayoutProps> = ({ children }) => {
-    const { logout, user } = useAuth(); // 認証情報とログアウト関数を取得
-    const navigate = useNavigate(); // 画面遷移用
+    const { logout, user } = useAuth();
+    const navigate = useNavigate();
 
-    // ログアウト処理
     const handleLogout = (): void => {
-        logout(); // Context のログアウト関数を呼び出し
-        navigate('/login'); // ログイン画面にリダイレクト
+        logout();
+        navigate('/login');
     };
 
     return (
         <div className="page-container">
-            {/* ヘッダー */}
             <AppBar position="static">
                 <Toolbar>
                     <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
@@ -38,11 +33,8 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                 </Toolbar>
             </AppBar>
 
-            {/* メインコンテンツ */}
-            <Box component={"main"} sx={{ py: 3 }}>
-                <main>
-                    {children}
-                </main>
+            <Box component="main" sx={{ py: 3 }}>
+                {children}
             </Box>
         </div>
     );

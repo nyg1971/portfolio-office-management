@@ -1,5 +1,4 @@
-// 顧客一覧画面
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import {
     Table,
     TableBody,
@@ -14,97 +13,63 @@ import {
     Box,
     Alert
 } from '@mui/material';
+import { customerService } from '../../services/apiClient';
+import type { Customer, CustomersResponse } from '../../types/api';
 import CustomerFilters from './CustomerFilters';
 import type { FilterState } from './CustomerFilters';
-
-// 顧客データの型定義
-interface Customer {
-    id: number;
-    name: string;
-    customer_type: string;
-    customer_type_display: string;
-    status: string;
-    status_display: string;
-    department: {
-        id: number;
-        name: string;
-    };
-    created_at: string;
-    updated_at: string;
-}
-interface CustomersResponse {
-    customers: Customer[];
-    pagination: {
-        current_page: number;
-        total_pages: number;
-        total_count: number;
-    };
-}
-
-// 顧客一覧取得API関数
-const fetchCustomers = async (): Promise<CustomersResponse> => {
-    const token = localStorage.getItem('token');
-
-    const response = await fetch('http://localhost:3001/api/v1/customers', {
-        method: 'GET',
-        headers: {
-            'Authorization': `Bearer ${token}`,
-            'Content-Type': 'application/json',
-        },
-    });
-
-    if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-    }
-
-    return response.json();
-
-};
+import CustomerPagination from './CustomerPagination';
 
 const CustomerList: React.FC = () => {
-    // 基本状態管理
     const [customersData, setCustomersData] = useState<CustomersResponse | null>(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
-    // フィルター状態管理
+    const [page, setPage] = useState(1);
+    const [perPage, setPerPage] = useState(20);
     const [filters, setFilters] = useState<FilterState>({
         searchName: '',
         customerType: '',
         status: ''
     });
-    const loadCustomers = async () => {
+
+    const loadCustomers = useCallback(async () => {
         try {
             setLoading(true);
-            const data = await fetchCustomers();
-            setCustomersData(data);
-        } catch (err) {
-            setError(err instanceof Error ? err.message : 'Unknown error');
+            const response = await customerService.getAll({ page, per_page: perPage });
+            setCustomersData(response.data);
+        } catch (err: unknown) {
+            const message = err instanceof Error ? err.message : '顧客データの取得に失敗しました';
+            setError(message);
         } finally {
             setLoading(false);
         }
-    };
+    }, [page, perPage]);
 
     useEffect(() => {
         loadCustomers();
-    }, []);
+    }, [loadCustomers]);
 
-    // フィルター処理関数
-    const getFilteredCustomers = (): Customer[] => {
-        if(!customersData) return [];
-        return customersData.customers.filter((customer) => {
-            const nameMatch = filters.searchName === '' || customer.name.toLowerCase().includes(filters.searchName.toLowerCase());
-            const typeMatch = filters.customerType === '' || customer.customer_type === filters.customerType;
-            const statusMatch = filters.status === '' || customer.status === filters.status;
-            return nameMatch && typeMatch && statusMatch;
-        });
-    }
-
-    // フィルター変更ハンドラー
-    const handleFiltersChange = (newFilters: FilterState) => {
-        setFilters(newFilters);
+    const handlePageChange = (newPage: number) => {
+        setPage(newPage);
     };
 
-    // ローディング状態
+    const handlePerPageChange = (newPerPage: number) => {
+        setPerPage(newPerPage);
+        setPage(1);
+    };
+
+    const getFilteredCustomers = (): Customer[] => {
+        if (!customersData) return [];
+        return customersData.customers.filter((customer) => {
+            const nameMatch = filters.searchName === '' ||
+                customer.name.toLowerCase().includes(filters.searchName.toLowerCase());
+            const typeMatch = filters.customerType === '' ||
+                customer.customer_type === filters.customerType;
+            const statusMatch = filters.status === '' ||
+                customer.status === filters.status;
+            return nameMatch && typeMatch && statusMatch;
+        });
+    };
+
     if (loading) {
         return (
             <Box display="flex" justifyContent="center" alignItems="center" minHeight="400px">
@@ -116,7 +81,6 @@ const CustomerList: React.FC = () => {
         );
     }
 
-    // エラー状態
     if (error) {
         return (
             <Alert severity="error" sx={{ mt: 2 }}>
@@ -125,7 +89,6 @@ const CustomerList: React.FC = () => {
         );
     }
 
-    // データなし状態
     if (!customersData || customersData.customers.length === 0) {
         return (
             <Paper sx={{ p: 3, mt: 2 }}>
@@ -136,25 +99,19 @@ const CustomerList: React.FC = () => {
         );
     }
 
-    const { pagination } = customersData;
-    // フィルター済み顧客データ取得
     const filteredCustomers = getFilteredCustomers();
 
     return (
         <Box>
-            {/* ヘッダー */}
             <Typography variant="h4" component="h1" gutterBottom>
                 顧客一覧
             </Typography>
 
-
-            {/* 検索・フィルター */}
             <CustomerFilters
                 filters={filters}
-                onFiltersChange={handleFiltersChange}
+                onFiltersChange={setFilters}
             />
 
-            {/* 結果統計情報 */}
             <Box sx={{ mb: 2, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <Typography variant="body2" color="text.secondary">
                     {filteredCustomers.length > 0 ? (
@@ -169,7 +126,6 @@ const CustomerList: React.FC = () => {
                     )}
                 </Typography>
 
-                {/* フィルター適用中の表示 */}
                 {(filters.searchName || filters.customerType || filters.status) && (
                     <Chip
                         label="フィルター適用中"
@@ -180,7 +136,6 @@ const CustomerList: React.FC = () => {
                 )}
             </Box>
 
-            {/* 顧客一覧テーブル */}
             <TableContainer component={Paper} sx={{ mt: 2 }}>
                 <Table>
                     <TableHead>
@@ -231,16 +186,15 @@ const CustomerList: React.FC = () => {
                 </Table>
             </TableContainer>
 
-            {/* ページネーション情報 */}
-            <Box sx={{ mt: 2, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <Typography variant="body2" color="text.secondary">
-                    ページ {pagination.current_page} / {pagination.total_pages}
-                </Typography>
-                <Typography variant="body2" color="text.secondary">
-                    合計 {pagination.total_count} 件
-                </Typography>
-            </Box>
+            <CustomerPagination
+                pagination={customersData.pagination}
+                perPage={perPage}
+                onPageChange={handlePageChange}
+                onPerPageChange={handlePerPageChange}
+                isLoading={loading}
+            />
         </Box>
     );
 };
+
 export default CustomerList;
