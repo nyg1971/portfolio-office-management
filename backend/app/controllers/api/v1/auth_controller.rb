@@ -83,7 +83,7 @@ module Api
       def user_params
         # params.require(:user) = "user"キーが必須
         # .permit(...) = 指定したキーのみ許可（mass assignment攻撃を防ぐ）
-        params.require(:user).permit(:email, :password, :password_confirmation, :role)
+        params.require(:user).permit(:email, :password, :password_confirmation)
       end
     end
   end
