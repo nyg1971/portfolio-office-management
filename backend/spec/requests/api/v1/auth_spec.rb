@@ -112,4 +112,60 @@ RSpec.describe 'Api::V1::Auths', type: :request do
       expect(response.parsed_body).to have_key('error')
     end
   end
+  describe 'POST /api/v1/auth/logout' do
+    let!(:user) { create(:user) }
+    let(:token) { JsonWebToken.encode(user_id: user.id) }
+    let(:headers) { { 'Authorization' => "Bearer #{token}" } }
+
+    it 'logs and return valid status' do
+      allow(Rails.logger).to receive(:info)
+
+      post '/api/v1/auth/logout', headers: headers
+
+      expect(Rails.logger).to have_received(:info).with("User #{user.id} logged out")
+      expect(response).to have_http_status(:no_content)
+    end
+  end
+  describe 'POST /api/v1/auth/refresh' do
+    let!(:user) { create(:user) }
+    let(:token) { JsonWebToken.encode(user_id: user.id) }
+    let!(:headers) { { 'Authorization' => "Bearer #{token}" } }
+
+    it 'return valid status' do
+      travel_to(1.second.from_now) do
+        post '/api/v1/auth/refresh', headers: headers
+      end
+      expect(response).to have_http_status(:ok)
+      expect(response.parsed_body['token']).to_not eq(token)
+    end
+  end
+
+  describe 'POST /api/v1/auth/profile' do
+    let!(:user) { create(:user) }
+    let(:token) { JsonWebToken.encode(user_id: user.id) }
+    let(:headers) { { 'Authorization' => "Bearer #{token}" } }
+
+    it 'returns current user info with valid token' do
+      get '/api/v1/auth/profile', headers: headers
+
+      expect(response).to have_http_status(:ok)
+      expect(response.parsed_body).to have_key('user')
+      expect(response.parsed_body['user']['id']).to eq(user.id)
+      expect(response.parsed_body['user']['email']).to eq(user.email)
+    end
+
+    it 'returns error without token' do
+      get '/api/v1/auth/profile'
+
+      expect(response).to have_http_status(:unauthorized)
+      expect(response.parsed_body).to have_key('error')
+    end
+
+    it 'returns error with invalid token' do
+      get '/api/v1/auth/profile', headers: { 'Authorization' => 'Bearer invalid_token' }
+
+      expect(response).to have_http_status(:unauthorized)
+      expect(response.parsed_body).to have_key('error')
+    end
+  end
 end

@@ -51,14 +51,30 @@ module Api
         end
       end
 
+      # ログアウト
+      def logout
+        # フロントエンド側でトークン削除するだけ
+        Rails.logger.info "User #{current_user.id} logged out"
+        head :no_content # HTTP 204 No Content
+      end
+
       # 認証済みユーザー情報取得API（要JWT認証）
       def me
-        # current_user = Base Controllerの authenticate_request で設定済み
         # このメソッドが呼ばれる時点で認証は完了している
         render json: {
           user: current_user.as_json(only: %i[id email role created_at])
         }
         # status省略時は自動的に :ok (HTTP 200)
+      end
+
+      # 再認証
+      def refresh
+        token = JsonWebToken.encode({ user_id: current_user.id })
+        render json: {
+          token: token,
+          user: current_user.as_json(only: %i[id email role]),
+          expires_at: 24.hours.from_now
+        }
       end
 
       private

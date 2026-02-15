@@ -1,4 +1,4 @@
-// 顧客一覧画面のプレースホルダー (暫定)
+// 顧客一覧画面
 import React, { useState, useEffect } from 'react';
 import {
     Table,
@@ -190,7 +190,6 @@ const CustomerList: React.FC = () => {
                             <TableCell><strong>部署</strong></TableCell>
                             <TableCell><strong>ステータス</strong></TableCell>
                             <TableCell><strong>登録日</strong></TableCell>
-                            <TableCell><strong>操作</strong></TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
@@ -224,12 +223,6 @@ const CustomerList: React.FC = () => {
                                 <TableCell>
                                     <Typography variant="body2" color="text.secondary">
                                         {new Date(customer.created_at).toLocaleDateString('ja-JP')}
-                                    </Typography>
-                                </TableCell>
-                                <TableCell>
-                                    {/* Phase 2以降で実装予定 */}
-                                    <Typography variant="body2" color="text.secondary">
-                                        操作ボタン
                                     </Typography>
                                 </TableCell>
                             </TableRow>

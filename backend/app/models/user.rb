@@ -27,6 +27,17 @@ class User < ApplicationRecord
   # if: :new_record? 条件: 新規レコードの場合のみ実行（更新時は実行しない）
   after_initialize :set_default_role, if: :new_record?
 
+  # API用のJSONシリアライザ
+  def as_json_for_api
+    {
+      id: id,
+      email: email,
+      role: role,
+      created_at: created_at,
+      updated_at: updated_at
+    }
+  end
+
   private
 
   def set_default_role

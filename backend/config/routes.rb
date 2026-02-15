@@ -11,14 +11,18 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       # 認証系（JWT不要）
-      post 'auth/login', to: 'auth#login'
-      post 'auth/signup', to: 'auth#signup'
-
-      # 認証必須
-      get 'auth/me', to: 'auth#me'
+      namespace :auth do
+        post :login
+        post :signup
+        post :logout
+        post :refresh
+        get :me
+        get :profile, action: :me
+      end
 
       # リソース系APIルート
       resources :customers, only: %i[index create show update destroy]
+      resources :users, except: %i[new edit]
       # resources :work_records
     end
   end

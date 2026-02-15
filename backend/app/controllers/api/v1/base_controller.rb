@@ -122,6 +122,16 @@ module Api
         # HTTP 401 Unauthorized + JSONエラーメッセージ
         render json: { error: 'unauthorized' }, status: :unauthorized
       end
+
+      # PageNation(Kaminari) ページネーション情報を返すヘルパーメソッド
+      def pagination_meta(collection)
+        {
+          current_page: collection.current_page,
+          per_page: collection.limit_value,
+          total_pages: collection.total_pages,
+          total_count: collection.total_count
+        }
+      end
     end
   end
 end
