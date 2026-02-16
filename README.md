@@ -16,6 +16,8 @@
 
 ## デモ
 
+ログイン → 顧客一覧 → ページ切り替え → 検索 → ログアウト
+
 <video src="https://github.com/user-attachments/assets/5adf1f75-381d-499c-a603-1a401fe12f7f" width="80%" controls></video>
 
 
