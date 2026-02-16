@@ -48,10 +48,10 @@ module Api
         end
       end
 
-      # DELETE /api/vi/customer/1
+      # DELETE /api/v1/customers/:id
       def destroy
         @customer.destroy
-        head :no_content # 204 No Content(削除成功)
+        head :no_content
       rescue ActiveRecord::InvalidForeignKey => e
         render json: {
           error: '関連データがあるため削除できません',
