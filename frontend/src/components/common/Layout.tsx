@@ -22,7 +22,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
             <AppBar position="static">
                 <Toolbar>
                     <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-                        福祉事務所 業務管理システム
+                        事業所 業務管理システム
                     </Typography>
                     <Typography variant="body2" sx={{ mr: 2 }}>
                         {user?.email}
