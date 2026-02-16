@@ -702,26 +702,28 @@ export default defineConfig({
 ## 9. コンポーネント依存関係図
 
 ```mermaid
-graph TD
-    App["App.tsx"] --> TP["ThemeProvider (MUI)"]
-    App --> CB["CssBaseline (MUI)"]
-    App --> AP["AuthProvider"]
-    AP --> AC["AuthContext (authContextDef.ts)"]
-    AC --> AS["authService (apiClient.ts)"]
+graph LR
 
+    App["App.tsx"]
+
+    App --> AP["AuthProvider"]
     App --> LF["LoginForm"]
+    App --> PR["ProtectedRoute"]
+    App --> LO["Layout"]
+    App --> CL["CustomerList"]
+
+    AP --> AC["AuthContext\n(authContextDef.ts)"]
+    AC --> AS["authService\n(apiClient.ts)"]
+
     LF --> UA1["useAuth"]
     LF --> UN1["useNavigate"]
 
-    App --> PR["ProtectedRoute"]
     PR --> UA2["useAuth"]
 
-    App --> LO["Layout"]
     LO --> UA3["useAuth"]
     LO --> UN2["useNavigate"]
 
-    App --> CL["CustomerList"]
-    CL --> CS["customerService (apiClient.ts)"]
+    CL --> CS["customerService\n(apiClient.ts)"]
     CL --> CF["CustomerFilters"]
     CL --> CP["CustomerPagination"]
 ```
