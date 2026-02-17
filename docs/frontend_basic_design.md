@@ -117,22 +117,38 @@ block-beta
 **レイアウト概要:**
 
 ```mermaid
-block-beta
-    columns 1
-    block:header["AppBar"]
-        H1["事業所 業務管理システム"] H2["user@email"] H3["ログアウト"]
+flowchart TD
+  subgraph Header["🔵 共通ヘッダー"]
+    HL["事業所 業務管理システム"]
+    HR["test@example.com | ログアウト"]
+  end
+  Header -.-> Main
+  subgraph Main["メインコンテンツ"]
+    Title["<b>顧客一覧</b>"]
+
+    subgraph Filters["検索・フィルター"]
+      direction LR
+      F1["顧客名検索"]
+      F2["顧客種別▼"]
+      F3["ステータス▼"]
     end
-    block:main["メインコンテンツ（最大幅1200px・中央配置）"]
-        block:filters["検索・フィルター"]
-            F1["名前検索"] F2["顧客種別▼"] F3["ステータス▼"]
-        end
-        block:table["顧客一覧テーブル"]
-            T1["名前 | 種別 | 部署 | ステータス | 登録日"]
-        end
-        block:pagination["ページネーション"]
-            P1["表示件数▼"] P2["1-20件表示(全100件中)"] P3["< 1 2 3 4 5 >"]
-        end
+
+    Table["📋 テーブル<br/>顧客名 | 顧客種別 | 部署 | ステータス | 登録日<br/>（5行データ）"]
+
+    subgraph Pagination["ページネーション"]
+      direction LR
+      PL["21-25件表示（全25件中）"]
+      PC["< 1 2 3 4 5 >"]
+      PR["表示件数 20件▼"]
     end
+
+    Title --> Filters
+    Filters --> Table
+    Table --> Pagination
+  end
+
+
+  style Header fill:#1976d2,color:#fff
 ```
 
 **テーブル表示項目:**
