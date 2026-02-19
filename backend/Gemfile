@@ -51,6 +51,7 @@ end
 
 group :development do
   gem 'listen'
+  gem 'pry-theme'
 end
 
 # 認証・API用
