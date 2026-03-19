@@ -81,7 +81,7 @@ erDiagram
         bigint id PK
         string name
         text address
-        integer department_type "sales / engineering / administration / support"
+        integer department_type
         integer status
         datetime created_at
         datetime updated_at
@@ -91,7 +91,7 @@ erDiagram
         bigint id PK
         string email UK
         string encrypted_password
-        integer role "staff(0) / manager(1) / admin(2)"
+        integer role
         datetime created_at
         datetime updated_at
     }
@@ -99,8 +99,8 @@ erDiagram
     customers {
         bigint id PK
         string name
-        integer customer_type "regular / premium / corporate"
-        integer status "active / inactive / pending"
+        integer customer_type
+        integer status
         bigint department_id FK
         datetime created_at
         datetime updated_at
