@@ -69,56 +69,7 @@
 
 業務アプリで一般的なドメイン構造（部署・顧客・スタッフ・作業記録）を前提に、現場運用を想定したER設計としています。
 
-```mermaid
-erDiagram
-    departments ||--o{ customers : "has many"
-    departments ||--o{ users : "has many"
-    departments ||--o{ work_records : "has many"
-    customers ||--o{ work_records : "has many"
-    users ||--o{ work_records : "has many (as staff)"
-
-    departments {
-        bigint id PK
-        string name
-        text address
-        integer department_type
-        integer status
-        datetime created_at
-        datetime updated_at
-    }
-
-    users {
-        bigint id PK
-        string email UK
-        string encrypted_password
-        integer role
-        datetime created_at
-        datetime updated_at
-    }
-
-    customers {
-        bigint id PK
-        string name
-        integer customer_type
-        integer status
-        bigint department_id FK
-        datetime created_at
-        datetime updated_at
-    }
-
-    work_records {
-        bigint id PK
-        text content
-        integer work_type
-        integer status
-        datetime work_date
-        bigint customer_id FK
-        bigint staff_user_id FK
-        bigint department_id FK
-        datetime created_at
-        datetime updated_at
-    }
-```
+![ER図](docs/diagrams/er.svg)
 
 ### API エンドポイント
 
@@ -271,3 +222,7 @@ portfolio-office-management/
 - サインアップ画面の実装
 - 作業記録（WorkRecord）管理機能のフロントエンド実装
 - フロントエンドテスト（Vitest + React Testing Library）の導入
+
+## メモ
+
+> ER図を変更する場合は `docs/diagrams/er.mmd` を編集し、`make render-diagrams` を実行して SVG を再生成してからコミットする。
