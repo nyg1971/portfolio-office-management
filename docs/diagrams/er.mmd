@@ -1,0 +1,48 @@
+erDiagram
+    departments ||--o{ customers : "has many"
+    departments ||--o{ users : "has many"
+    departments ||--o{ work_records : "has many"
+    customers ||--o{ work_records : "has many"
+    users ||--o{ work_records : "has many (as staff)"
+
+    departments {
+        bigint id PK
+        string name
+        text address
+        integer department_type
+        integer status
+        datetime created_at
+        datetime updated_at
+    }
+
+    users {
+        bigint id PK
+        string email UK
+        string encrypted_password
+        integer role
+        datetime created_at
+        datetime updated_at
+    }
+
+    customers {
+        bigint id PK
+        string name
+        integer customer_type
+        integer status
+        bigint department_id FK
+        datetime created_at
+        datetime updated_at
+    }
+
+    work_records {
+        bigint id PK
+        text content
+        integer work_type
+        integer status
+        datetime work_date
+        bigint customer_id FK
+        bigint staff_user_id FK
+        bigint department_id FK
+        datetime created_at
+        datetime updated_at
+    }
