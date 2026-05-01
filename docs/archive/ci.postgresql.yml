@@ -52,8 +52,24 @@ jobs:
       run:
         working-directory: backend
 
+    services:
+      postgres:
+        image: postgres:15
+        env:
+          POSTGRES_USER: business_user
+          POSTGRES_PASSWORD: business_password
+          POSTGRES_DB: business_api_test
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd="pg_isready -U business_user"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=5
+
     env:
       RAILS_ENV: test
+      DATABASE_HOST: localhost
       RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
 
     steps:

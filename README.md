@@ -29,8 +29,7 @@
 |------|-----------|------|
 | Ruby | 3.1.4 | 言語 |
 | Ruby on Rails | 7.2 | API フレームワーク（API モード） |
-| PostgreSQL | 15 | データベース |
-| Redis | 7 | キャッシュ / セッションストア |
+| SQLite | 3 | データベース |
 | Devise + JWT | - | 認証基盤 |
 | Kaminari | - | ページネーション |
 | RSpec | - | テストフレームワーク |
@@ -53,7 +52,7 @@
 
 | 技術 | 用途 |
 |------|------|
-| Docker Compose | 開発環境（PostgreSQL, Redis, PgAdmin, Rails） |
+| SQLite | ローカル開発用DB（Docker不要） |
 | GitHub Actions | CI パイプライン（RSpec, RuboCop, Brakeman） |
 
 ## 主要機能
@@ -138,7 +137,7 @@ GitHub Actions で以下の3ジョブを PR ごとに自動実行しています
 
 - **scan_ruby**: Brakeman によるセキュリティ脆弱性の静的解析
 - **lint**: RuboCop によるコードスタイルチェック
-- **test**: RSpec によるテスト実行（PostgreSQL サービスコンテナ使用）
+- **test**: RSpec によるテスト実行（SQLite を使用）
 
 ### フロントエンドの認証管理
 
@@ -148,7 +147,7 @@ React Context + Axios interceptor による JWT トークンの自動管理を�
 
 ### 前提条件
 
-- Docker & Docker Compose
+- Ruby 3.1.4（rbenv経由）
 - Node.js 18+
 - Git
 
@@ -156,13 +155,9 @@ React Context + Axios interceptor による JWT トークンの自動管理を�
 
 ```bash
 cd backend/
-docker-compose up
-```
-
-初回起動時はデータベースのセットアップが必要です。
-
-```bash
-docker-compose run --rm app rails db:create db:migrate db:seed
+bundle install
+bundle exec rails db:create db:migrate db:seed
+bundle exec rails server -p 3001
 ```
 
 ### フロントエンド
@@ -181,13 +176,13 @@ npm run dev
 cd backend/
 
 # テスト実行
-docker-compose run --rm app rspec
+bundle exec rspec
 
 # コードスタイルチェック
-docker-compose run --rm app rubocop
+bundle exec rubocop
 
 # セキュリティ解析
-docker-compose run --rm app brakeman --no-pager
+bundle exec brakeman --no-pager
 ```
 
 ## プロジェクト構成
