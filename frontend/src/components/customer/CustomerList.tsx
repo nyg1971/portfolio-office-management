@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import {
     Table,
     TableBody,
@@ -19,7 +19,7 @@ import CustomerFilters from './CustomerFilters';
 import type { FilterState } from './CustomerFilters';
 import CustomerPagination from './CustomerPagination';
 
-const CustomerList: React.FC = () => {
+const CustomerList = () => {
     const [customersData, setCustomersData] = useState<CustomersResponse | null>(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
