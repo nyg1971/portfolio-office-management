@@ -4,9 +4,9 @@ source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem 'rails', '~> 7.2.2', '>= 7.2.2.1'
-# Use sqlite3 as the database for Active Record
-# gem "sqlite3", ">= 1.4"
-gem 'pg', '~> 1.1'
+# SQLite（現在使用中）
+gem 'sqlite3', '>= 1.4'
+# gem 'pg', '~> 1.1'  # Docker/PostgreSQLにロールバックする場合はsqlite3と入れ替え
 # Use the Puma web server [https://github.com/puma/puma]
 gem 'puma', '>= 5.0'
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
@@ -59,7 +59,11 @@ gem 'devise'
 gem 'jwt'
 gem 'kaminari'
 gem 'rack-cors'
-gem 'redis'
+# gem 'redis'  # Docker/PostgreSQLにロールバックする場合はgroup :productionから移動
+
+group :production do
+  gem 'redis' # SQLite環境ではproductionのみ
+end
 
 group :test do
   gem 'shoulda-matchers'

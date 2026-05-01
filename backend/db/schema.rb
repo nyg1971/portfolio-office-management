@@ -11,13 +11,10 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema[7.2].define(version: 2025_06_27_144831) do
-  # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
-
   create_table "customers", force: :cascade do |t|
     t.string "name"
     t.integer "customer_type"
-    t.bigint "department_id", null: false
+    t.integer "department_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "status"
@@ -47,15 +44,15 @@ ActiveRecord::Schema[7.2].define(version: 2025_06_27_144831) do
   end
 
   create_table "work_records", force: :cascade do |t|
-    t.bigint "customer_id", null: false
-    t.bigint "staff_user_id", null: false
+    t.integer "customer_id", null: false
+    t.integer "staff_user_id", null: false
     t.text "content"
     t.datetime "work_date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "status"
     t.integer "work_type"
-    t.bigint "department_id"
+    t.integer "department_id"
     t.index ["customer_id"], name: "index_work_records_on_customer_id"
     t.index ["department_id"], name: "index_work_records_on_department_id"
     t.index ["staff_user_id"], name: "index_work_records_on_staff_user_id"

@@ -26,3 +26,8 @@ Metrics/BlockLength:
   Max: 30  # デフォルト25 → 30に
   Exclude:
     - 'spec/**/*'  # テストファイルは除外
+
+# seeds.rb の puts は db:seed 実行時の進捗確認用として許容
+Rails/Output:
+  Exclude:
+    - 'db/seeds.rb'
