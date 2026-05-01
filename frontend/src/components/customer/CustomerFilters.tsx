@@ -1,4 +1,4 @@
-import React from 'react';
+import type { ChangeEvent } from 'react';
 import {
     Paper,
     Grid,
@@ -41,8 +41,8 @@ const getStatusDisplay = (status: string): string => {
     return statusMap[status] || status;
 };
 
-const CustomerFilters: React.FC<CustomerFiltersProps> = ({ filters, onFiltersChange }) => {
-    const handleSearchNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+const CustomerFilters = ({ filters, onFiltersChange }: CustomerFiltersProps) => {
+    const handleSearchNameChange = (event: ChangeEvent<HTMLInputElement>) => {
         onFiltersChange({ ...filters, searchName: event.target.value });
     };
 

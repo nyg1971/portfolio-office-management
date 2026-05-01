@@ -1,4 +1,4 @@
-import React from "react";
+import type { ChangeEvent } from "react";
 import {
     Box,
     Pagination,
@@ -20,14 +20,14 @@ interface CustomerPaginationProps {
     isLoading?: boolean;
 }
 
-const CustomerPagination: React.FC<CustomerPaginationProps> = ({
+const CustomerPagination = ({
     pagination,
     perPage,
     onPageChange,
     onPerPageChange,
     isLoading = false
-}) => {
-    const handlePageChange = (_event: React.ChangeEvent<unknown>, page: number) => {
+}: CustomerPaginationProps) => {
+    const handlePageChange = (_event: ChangeEvent<unknown>, page: number) => {
         onPageChange(page);
     };
 

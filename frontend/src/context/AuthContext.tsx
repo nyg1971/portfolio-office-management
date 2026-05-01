@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import type { ReactNode } from 'react';
 import { authService } from '../services/apiClient';
 import { AuthContext } from './authContextDef';
@@ -8,7 +8,7 @@ interface AuthProviderProps {
     children: ReactNode;
 }
 
-export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
+export const AuthProvider = ({ children }: AuthProviderProps) => {
     const [user, setUser] = useState<AuthContextType['user']>(null);
     const [loading, setLoading] = useState<boolean>(true);
     const [token, setToken] = useState<string | null>(localStorage.getItem('token'));

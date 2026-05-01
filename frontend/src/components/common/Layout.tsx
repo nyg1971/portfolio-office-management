@@ -1,4 +1,3 @@
-import React  from 'react';
 import type { ReactNode } from 'react';
 import { Box, AppBar, Toolbar, Typography, Button } from '@mui/material';
 import { useAuth } from '../../hooks/useAuth';
@@ -8,7 +7,7 @@ interface LayoutProps {
     children: ReactNode;
 }
 
-const Layout: React.FC<LayoutProps> = ({ children }) => {
+const Layout = ({ children }: LayoutProps) => {
     const { logout, user } = useAuth();
     const navigate = useNavigate();
 

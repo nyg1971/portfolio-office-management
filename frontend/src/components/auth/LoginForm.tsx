@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import type { FormEvent } from 'react';
 import {
     Container, Paper, TextField, Button, Typography, Alert, Box
@@ -6,7 +6,7 @@ import {
 import { useAuth } from "../../hooks/useAuth";
 import { useNavigate} from 'react-router-dom';
 
-const LoginForm: React.FC = () => {
+const LoginForm = () => {
     const [email, setEmail] = useState<string>('');
     const [password, setPassword] = useState<string>('');
     const [error, setError] = useState<string>('');
