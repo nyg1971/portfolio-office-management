@@ -52,6 +52,7 @@ end
 group :development do
   gem 'listen'
   gem 'pry-theme'
+  gem 'ruby-lsp'
 end
 
 # 認証・API用
